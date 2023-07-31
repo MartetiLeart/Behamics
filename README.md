@@ -130,20 +130,4 @@ Response:
   ```
   Replace `your_generated_token` with the token obtained from the `/login` endpoint.
 
-Feel free to customize the instructions and endpoint explanations based on your specific implementation.
 
----
-*(Add any additional information you want to include in the README here)*
-```
-
-Remember to replace `<repository_url>` with the actual URL of your GitHub repository.
-
-Once you've updated the README.md file with the provided environment variables and any other relevant information, save it in the root folder of your project. Then, commit and push the changes to your GitHub repository:
-
-```bash
-git add README.md
-git commit -m "Update README.md"
-git push origin master
-```
-
-Your README file is now updated with the correct environment variables, and it will provide clear instructions for running your Car Rental REST API project to anyone accessing your GitHub repository.
