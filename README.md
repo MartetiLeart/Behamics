@@ -1,133 +1,31 @@
-
-
-```markdown
 # Car Rental REST API
 
-This is a simple REST API for a car rental service built with Node.js, Express.js, and MongoDB.
+A car rental API built with Node.js, Express.js, and MongoDB.
 
-## How to Run the App
+## Run locally
 
-1. Clone the repository:
+1. Clone this repository.
+2. Run `npm install`.
+3. Create a local `.env` file with your own configuration:
 
-   ```bash
-   git clone <repository_url>
-   ```
+```dotenv
+PORT=3000
+MONGODB_URI=mongodb://localhost:27017/car_rental
+JWT_SECRET_KEY=replace_with_a_long_random_secret
+```
 
-2. Install dependencies:
+Use a unique, randomly generated JWT secret. Keep credentials out of source control. If credentials previously published in this repository were real, rotate them; replacing examples does not remove earlier commits.
 
-   ```bash
-   npm install
-   ```
-
-3. Set up environment variables:
-
-   - Create a `.env` file in the project root directory.
-   - Add the following variables with appropriate values:
-
-     ```
-     PORT=3000
-     MONGODB_URI=mongodb+srv://leart:leart@behamicsrental.2mth1gn.mongodb.net/
-     JWT_SECRET_KEY=secretone
-     ```
-
-   Note: The provided `MONGODB_URI` appears to be a valid MongoDB connection string, and the `JWT_SECRET_KEY` is set to "secretone."
-
-4. Start the server:
-
-   ```bash
-   npm start
-   ```
-
-5. The server will be running at `http://localhost:3000`.
+4. Run `npm start`.
+5. The API listens at `http://localhost:3000` by default.
 
 ## Endpoints
 
-### `POST /register`
+| Method | Path | Description |
+| --- | --- | --- |
+| POST | `/register` | Register with `fullName`, `email`, `username`, and `password`. |
+| POST | `/login` | Authenticate with `username` and `password`; receive a JWT. |
+| GET | `/my-profile` | Retrieve the authenticated user's profile. |
+| GET | `/rental-cars` | List cars ordered by price; optionally filter by `year`, `color`, `steering_type`, and `number_of_seats`. |
 
-Registers a new user in the system.
-
-Request Body:
-```json
-{
-  "fullName": "John Doe",
-  "email": "john@example.com",
-  "username": "johndoe",
-  "password": "secretpassword"
-}
-```
-
-Response:
-```json
-{
-  "message": "User registered successfully."
-}
-```
-
-### `POST /login`
-
-Logs in a user and returns a JWT token for authentication.
-
-Request Body:
-```json
-{
-  "username": "johndoe",
-  "password": "secretpassword"
-}
-```
-
-Response:
-```json
-{
-  "token": "your_generated_token"
-}
-```
-
-### `GET /my-profile`
-
-Returns the profile of the currently logged-in user.
-
-Response:
-```json
-{
-  "fullName": "John Doe",
-  "email": "john@example.com",
-  "username": "johndoe"
-}
-```
-
-### `GET /rental-cars`
-
-Returns a list of available cars to rent, sorted from lowest to highest price.
-
-Query Parameters (optional for filtering):
-- `year`: Filter cars by year.
-- `color`: Filter cars by color.
-- `steering_type`: Filter cars by steering type.
-- `number_of_seats`: Filter cars by number of seats.
-
-Response:
-```json
-[
-  {
-    "_id": "60e84e45772d9c247d179ea7",
-    "name": "Golf mk8",
-    "price_per_day": 50.0,
-    "year": 2015,
-    "color": "black",
-    "steering_type": "automatic",
-    "number_of_seats": 5
-  },
-  // More cars...
-]
-```
-
-## Authentication
-
-- The `/register` and `/login` endpoints are public and do not require authentication.
-- The `/my-profile` endpoint is protected and requires a valid JWT token for authentication. Include the token in the `Authorization` header as follows:
-  ```
-  Authorization: Bearer your_generated_token
-  ```
-  Replace `your_generated_token` with the token obtained from the `/login` endpoint.
-
-
+Protected requests use the header `Authorization: Bearer <your_token>`.
